@@ -1,6 +1,6 @@
 See nemesispy.pdf for documentation.
 
-**NemesisPy** contains routines for calculating and fitting
+**NEMESISPY** contains routines for calculating and fitting
 exoplanet emission spectra at arbitrary orbital phases,
 which can help us constrain the thermal structure and chemical
 abundance of exoplanet atmospheres. It is also capable
@@ -20,7 +20,7 @@ The radiative transfer calculations are done with the
 correlated-k approximation, and are accelerated with the
 `Numba` just-in-time compiler to match the speed of
 compiled languages such as Fortran. The radiative transfer
-routines are based on the well-tested Nemesis (https://github.com/nemesiscode)
+routines are based on the well-tested NEMESIS (https://github.com/nemesiscode)
 library developed by Patrick Irwin (University of Oxford) and collaborators.
 
 This package has the following features:
@@ -32,7 +32,7 @@ This package has the following features:
   just-in-time compilation, which compiles Python code to machine
   code at run time.
 * Radiative transfer routines are benchmarked against
-  the extensively used Nemesis (https://github.com/nemesiscode) library.
+  the extensively used NEMESIS (https://github.com/nemesiscode) library.
 * Contains interactive plotting routines that allow you
   to visualise the impact of gas abundance and thermal
   structure on the emission spectra.
