@@ -8,7 +8,7 @@ Hot Jupiter emission spectrum
 
 Let's start with a simple example: computing the emission spectrum of a hot Jupiter
 from a given model atmosphere. The code for this tutorial is in the
-``examples/calculate_emission\calculate_emission.py``.
+``examples/calculate_emission/calculate_emission.py``.
 
 **Step 1: Import the necessary modules**
 
