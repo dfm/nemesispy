@@ -1,4 +1,4 @@
-See nemesispy.pdf for documentation.
+See https://jingxuan97.github.io/nemesispy/ for documentation.
 
 **NEMESISPY** contains routines for calculating and fitting
 exoplanet emission spectra at arbitrary orbital phases,

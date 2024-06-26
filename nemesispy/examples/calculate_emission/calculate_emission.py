@@ -3,21 +3,29 @@ import numpy as np
 import time
 # Import constants, opacity data, and ForwardModel class
 from nemesispy.common.constants import *
+# Import opacity data
 from nemesispy.data.helper import lowres_file_paths, cia_file_path
+# Import ForwardModel class
 from nemesispy.radtran.forward_model import ForwardModel
 # Import GCM data to use as atmospheric model
-from nemesispy.data.gcm.process_gcm import (nlon,nlat,xlon,xlat,npv,pv,\
-    tmap,h2omap,comap,co2map,ch4map,hemap,h2map,vmrmap,\
-    tmap_mod,h2omap_mod,comap_mod,co2map_mod,ch4map_mod,\
-    hemap_mod,h2map_mod,vmrmap_mod,phase_grid,\
-    kevin_phase_by_wave,kevin_wave_by_phase,\
-    pat_phase_by_wave,pat_wave_by_phase,\
-    vmrmap_mod_new,tmap_hot)
+# Here we import a temperature map tmap and a abundance map vmrmap_mod.
+# The temperature map is a 3D array with dimensions Nlon x Nlat x Nlayer,
+# where Nlon is the number of longitude points,  Nlat is the number of latitude points,
+# and Nlayer is the number of layers in the GCM model.
+# The abundance map is a 4D array with dimensions Nlon x Nlat x Nlayer x Nspecies,
+from nemesispy.data.gcm.process_gcm import tmap, vmrmap_mod
+# The longitude, latitude and pressure grid of the GCM model is given by
+# xlon, xlat, pv
+from nemesispy.data.gcm.process_gcm import xlon,xlat,pv
+# Finally, we import the observed phase resolved emission spectrum of WASP-43b
+# published in Stevenson et al. 2017, and the emission spectrum calculated using
+# the GCM model using NEMESIS in Irwin et al. 2020.
+from nemesispy.data.gcm.process_gcm import kevin_phase_by_wave, pat_phase_by_wave
 
 ### The code below calculate the disc integrated emission spectrum at an
 # arbitary orbital phase give a 3D atmospheric model based on a GCM.
 # We model the HST/WFC3 and Spitzer/IRAC emission spectrum of WASP-43b published
-# in Stevenson et al. 2018.
+# in Stevenson et al. 2017.
 # The GCM data is provided by Vivien Parmentier and used in Irwin et al. 2020
 # and Yang et al. 2023.
 
@@ -43,9 +51,7 @@ wasp43_spec = np.array(
     2.283720e+25, 2.203690e+25, 2.136015e+25, 1.234010e+24,
     4.422200e+23]
     )
-# Pick an orbital phase
-phasenumber = 3 # secondary eclipse
-phase = phase_grid[phasenumber]
+
 # Pick resolution for the disc average
 nmu = 5 # Number of mu bins
 # Reference planetary parameters
@@ -76,9 +82,12 @@ FM.set_opacity_data(
 # just-in-time compiler compiles Python code into machine code.
 print('start just-in-time compilation...')
 start1 = time.time()
+# Pick an orbital phase
+phasenumber = 3 # secondary eclipse
+phase = phase_grid[phasenumber]
 one_phase =  FM.calc_disc_spectrum(phase=phase, nmu=nmu, P_model = P_model,
     global_model_P_grid=pv,
-    global_T_model=tmap_mod, global_VMR_model=vmrmap_mod,
+    global_T_model=tmap, global_VMR_model=vmrmap_mod,
     mod_lon=xlon,
     mod_lat=xlat,
     solspec=wasp43_spec)
@@ -89,7 +98,7 @@ print('compilation + run time = ', end1-start1)
 start2 = time.time()
 one_phase =  FM.calc_disc_spectrum(phase=phase, nmu=nmu, P_model = P_model,
     global_model_P_grid=pv,
-    global_T_model=tmap_mod, global_VMR_model=vmrmap_mod,
+    global_T_model=tmap, global_VMR_model=vmrmap_mod,
     mod_lon=xlon,
     mod_lat=xlat,
     solspec=wasp43_spec)
@@ -99,13 +108,13 @@ print('run time = ', end2-start2)
 # Plot the results
 # We compare the emission spectrum calculated using the GCM model from NemesiPy
 # with the emission spectrum calculated using the GCM model from NEMESIS,
-# and the observed data from Stevenson et al. 2018.
+# and the observed data from Stevenson et al. 2017.
 fig, axs = plt.subplots(nrows=2,ncols=1,sharex=True,
     dpi=200)
 axs[0].set_title('phase = {}'.format(phase))
 axs[0].plot(wave_grid,one_phase,color='b',
     linewidth=0.5,linestyle='--',
-    marker='x',markersize=2,label='GCM model (NemesiPy)')
+    marker='x',markersize=2,label='GCM model (NENESISPY)')
 axs[0].plot(wave_grid,pat_phase_by_wave[phasenumber],color='k',
     linewidth=0.5,linestyle='-',
     marker='x',markersize=2,label='GCM model (NEMESIS)')
@@ -126,7 +135,7 @@ plt.savefig('emission_example.pdf')
 # for i in range(niter):
 #     one_phase =  FM.calc_disc_spectrum(phase=phase, nmu=nmu, P_model = P_model,
 #         global_model_P_grid=pv,
-#         global_T_model=tmap_mod, global_VMR_model=vmrmap_mod,
+#         global_T_model=tmap, global_VMR_model=vmrmap_mod,
 #         mod_lon=xlon,
 #         mod_lat=xlat,
 #         solspec=wasp43_spec)
