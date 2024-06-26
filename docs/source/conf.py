@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'NEMESISPY'
+project = 'nemeispy'
 copyright = '2024, Jingxuan Yang, Juan Alday, Patrick Irwin'
 author = 'Jingxuan Yang, Juan Alday, Patrick Irwin'
 
