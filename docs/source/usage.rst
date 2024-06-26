@@ -39,8 +39,6 @@ package provides many helpful routines for working with opacity data.
 
 Issues and contributions
 ------------------------
-To report issues or problems with NEMESISPY, please use the GitHub issue tracker
-`here <https://github.com/Jingxuan97/nemesispy>`_.
+To report issues or problems with NEMESISPY, please use the `GitHub issue tracker <https://github.com/Jingxuan97/nemesispy>`_.
 If you would like to contribute to the development of NEMESISPY, or seek scientific
-collaboration, please contact us directly.
-Our contact details can be found `here <https://www.physics.ox.ac.uk/our-people/yangj>`_.
+collaboration, please directly `contact us  <https://www.physics.ox.ac.uk/our-people/yangj>`_.
