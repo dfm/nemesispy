@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Tutorial &#8212; nemeispy 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">nemeispy 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tutorial</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this heading">¶</a></h1>
+<p>We provide some tutorials to help you get started with the code.</p>
+<section id="hot-jupiter-emission-spectrum">
+<h2>Hot Jupiter emission spectrum<a class="headerlink" href="#hot-jupiter-emission-spectrum" title="Permalink to this heading">¶</a></h2>
+<p>Let’s start with a simple example: computing the emission spectrum of a hot Jupiter
+from a given model atmosphere. The code for this tutorial is in the
+<code class="docutils literal notranslate"><span class="pre">examples/calculate_emission\calculate_emission.py</span></code>.</p>
+<p><strong>Step 1: Import the necessary modules</strong></p>
+<p>Firstly, we import all the variables defined in the <code class="docutils literal notranslate"><span class="pre">nemesispy.common.constants</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">nemesispy.common.constants</span></code> module contains all the constants that are used
+in NEMESISPY. You should check the module to see all the available constants
+and take care not to redefine them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">nemesispy.common.constants</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Next, we import the opacity date file paths from <code class="docutils literal notranslate"><span class="pre">nemesispy.data.helper</span></code>.
+We import a list of low resolution k-tables in <code class="docutils literal notranslate"><span class="pre">lowres_file_paths</span></code>
+and a CIA opacity data file.
+It is entirely up to you to decide where to store the opacity data files,
+as long as you provide the correct paths.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nemesispy.data.helper</span> <span class="kn">import</span> <span class="n">lowres_file_paths</span><span class="p">,</span> <span class="n">cia_file_path</span>
+</pre></div>
+</div>
+<p>Now, we import key object of the NEMESISPY library, the <code class="docutils literal notranslate"><span class="pre">ForwardModel</span></code> class.
+The <code class="docutils literal notranslate"><span class="pre">ForwardModel</span></code> object is the main interface object that you will
+need to use the radiative transfer functionality of the NEMESISPY library, such as
+computing emission spectra.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nemesispy.radtran.forward_model</span> <span class="kn">import</span> <span class="n">ForwardModel</span>
+</pre></div>
+</div>
+<p>Next, we import an atmopsheric model calculated using a general circulation
+model (GCM) for a hot Jupiter. This model is calculated using the setup
+of Parmentier et al. (2016) and used in the Irwin et al. (2020).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nemesispy.data.gcm.process_gcm</span> <span class="kn">import</span> <span class="n">tmap</span><span class="p">,</span> <span class="n">vmrmap_mod</span>
+</pre></div>
+</div>
+<p>Here we import a temperature map <code class="docutils literal notranslate"><span class="pre">tmap</span></code> and a abundance map <code class="docutils literal notranslate"><span class="pre">vmrmap_mod</span></code>.
+The temperature map is a 3D array with dimensions Nlon x Nlat x Nlayer,
+where Nlon is the number of longitude points,  Nlat is the number of latitude points,
+and Nlayer is the number of layers in the GCM model.
+The abundance map is a 4D array with dimensions Nlon x Nlat x Nlayer x Nspecies,
+where Nspecies is the number of gas species in the atmosphere.
+In this example, we have 6 gas species: H2O, CO, CO2, CH4, He, and H2.
+The longitude, latitude and pressure grid of the GCM model is given by
+<code class="docutils literal notranslate"><span class="pre">xlon</span></code>, <code class="docutils literal notranslate"><span class="pre">xlat</span></code>, <code class="docutils literal notranslate"><span class="pre">pv</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nemesispy.data.gcm.process_gcm</span> <span class="kn">import</span> <span class="n">xlon</span><span class="p">,</span><span class="n">xlat</span><span class="p">,</span><span class="n">pv</span>
+</pre></div>
+</div>
+<p>Finally, we import the observed phase resolved emission spectrum of WASP-43b
+published in Kevin Stevenson et al. 2017, and the emission spectrum calculated using
+the GCM model using NEMESIS in Patrick Irwin et al. 2020.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nemesispy.data.gcm.process_gcm</span> <span class="kn">import</span> <span class="n">kevin_phase_by_wave</span><span class="p">,</span> <span class="n">pat_phase_by_wave</span>
+</pre></div>
+</div>
+<p><strong>Step 2: Defining variables</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Wavelengths grid for the emission spectrum (microns)</span>
+<span class="n">wave_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.1425</span><span class="p">,</span> <span class="mf">1.1775</span><span class="p">,</span> <span class="mf">1.2125</span><span class="p">,</span> <span class="mf">1.2475</span><span class="p">,</span> <span class="mf">1.2825</span><span class="p">,</span> <span class="mf">1.3175</span><span class="p">,</span> <span class="mf">1.3525</span><span class="p">,</span>
+<span class="mf">1.3875</span><span class="p">,</span> <span class="mf">1.4225</span><span class="p">,</span> <span class="mf">1.4575</span><span class="p">,</span> <span class="mf">1.4925</span><span class="p">,</span> <span class="mf">1.5275</span><span class="p">,</span> <span class="mf">1.5625</span><span class="p">,</span> <span class="mf">1.5975</span><span class="p">,</span> <span class="mf">1.6325</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">])</span>
+<span class="n">nwave</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">wave_grid</span><span class="p">)</span>
+<span class="c1"># Orbital phase grid (degree)</span>
+<span class="n">phase_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">22.5</span><span class="p">,</span>  <span class="mf">45.</span> <span class="p">,</span>  <span class="mf">67.5</span><span class="p">,</span>  <span class="mf">90.</span> <span class="p">,</span> <span class="mf">112.5</span><span class="p">,</span> <span class="mf">135.</span> <span class="p">,</span> <span class="mf">157.5</span><span class="p">,</span> <span class="mf">180.</span> <span class="p">,</span>
+    <span class="mf">202.5</span><span class="p">,</span> <span class="mf">225.</span> <span class="p">,</span> <span class="mf">247.5</span><span class="p">,</span> <span class="mf">270.</span> <span class="p">,</span> <span class="mf">292.5</span><span class="p">,</span> <span class="mf">315.</span> <span class="p">,</span> <span class="mf">337.5</span><span class="p">])</span>
+<span class="n">nphase</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">phase_grid</span><span class="p">)</span>
+<span class="c1"># WASP-43 stellar spectrum to convert flux to Fp/Fs</span>
+<span class="n">wasp43_spec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span><span class="mf">3.341320e+25</span><span class="p">,</span> <span class="mf">3.215455e+25</span><span class="p">,</span> <span class="mf">3.101460e+25</span><span class="p">,</span> <span class="mf">2.987110e+25</span><span class="p">,</span>
+    <span class="mf">2.843440e+25</span><span class="p">,</span> <span class="mf">2.738320e+25</span><span class="p">,</span> <span class="mf">2.679875e+25</span><span class="p">,</span> <span class="mf">2.598525e+25</span><span class="p">,</span>
+    <span class="mf">2.505735e+25</span><span class="p">,</span> <span class="mf">2.452230e+25</span><span class="p">,</span> <span class="mf">2.391140e+25</span><span class="p">,</span> <span class="mf">2.345905e+25</span><span class="p">,</span>
+    <span class="mf">2.283720e+25</span><span class="p">,</span> <span class="mf">2.203690e+25</span><span class="p">,</span> <span class="mf">2.136015e+25</span><span class="p">,</span> <span class="mf">1.234010e+24</span><span class="p">,</span>
+    <span class="mf">4.422200e+23</span><span class="p">]</span>
+    <span class="p">)</span>
+<span class="c1"># Pick resolution for the disc average</span>
+<span class="n">nmu</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># Number of mu bins</span>
+<span class="c1"># Reference planetary parameters</span>
+<span class="n">M_plt</span> <span class="o">=</span> <span class="mf">2.034</span> <span class="o">*</span> <span class="n">M_JUP</span> <span class="c1"># kg</span>
+<span class="n">R_plt</span> <span class="o">=</span> <span class="mf">1.036</span> <span class="o">*</span> <span class="n">R_JUP_E</span> <span class="c1"># m</span>
+<span class="c1"># List of gas species to include in the model using identifiers</span>
+<span class="n">gas_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">39</span><span class="p">])</span> <span class="c1"># H2O, CO2, CO, CH4, H2, He</span>
+<span class="n">iso_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="c1"># Isotopologue identifier</span>
+<span class="c1"># Define the atmospheric model</span>
+<span class="n">NLAYER</span> <span class="o">=</span> <span class="mi">40</span> <span class="c1"># Number of layers</span>
+<span class="n">top_pressure</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># Top pressure in Pa</span>
+<span class="n">botttom_pressure</span> <span class="o">=</span> <span class="mf">20e5</span> <span class="c1"># Bottom pressure in Pa</span>
+<span class="n">P_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">botttom_pressure</span><span class="p">,</span><span class="n">top_pressure</span><span class="p">,</span><span class="n">NLAYER</span><span class="p">)</span> <span class="c1"># Pressure grid in Pa</span>
+</pre></div>
+</div>
+<p><strong>Step 3: Setting up the ForwardModel object</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a ForwardModel object</span>
+<span class="n">FM</span> <span class="o">=</span> <span class="n">ForwardModel</span><span class="p">()</span>
+<span class="n">FM</span><span class="o">.</span><span class="n">set_planet_model</span><span class="p">(</span>
+    <span class="n">M_plt</span><span class="o">=</span><span class="n">M_plt</span><span class="p">,</span><span class="n">R_plt</span><span class="o">=</span><span class="n">R_plt</span><span class="p">,</span>
+    <span class="n">gas_id_list</span><span class="o">=</span><span class="n">gas_id</span><span class="p">,</span><span class="n">iso_id_list</span><span class="o">=</span><span class="n">iso_id</span><span class="p">,</span>
+    <span class="n">NLAYER</span><span class="o">=</span><span class="n">NLAYER</span>
+    <span class="p">)</span>
+<span class="n">FM</span><span class="o">.</span><span class="n">set_opacity_data</span><span class="p">(</span>
+    <span class="n">kta_file_paths</span><span class="o">=</span><span class="n">lowres_file_paths</span><span class="p">,</span>
+    <span class="n">cia_file_path</span><span class="o">=</span><span class="n">cia_file_path</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Step 4: Computing the emission spectrum</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick an orbital phase</span>
+<span class="n">phasenumber</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># secondary eclipse</span>
+<span class="n">phase</span> <span class="o">=</span> <span class="n">phase_grid</span><span class="p">[</span><span class="n">phasenumber</span><span class="p">]</span>
+<span class="n">one_phase</span> <span class="o">=</span>  <span class="n">FM</span><span class="o">.</span><span class="n">calc_disc_spectrum</span><span class="p">(</span><span class="n">phase</span><span class="o">=</span><span class="n">phase</span><span class="p">,</span> <span class="n">nmu</span><span class="o">=</span><span class="n">nmu</span><span class="p">,</span> <span class="n">P_model</span> <span class="o">=</span> <span class="n">P_model</span><span class="p">,</span>
+    <span class="n">global_model_P_grid</span><span class="o">=</span><span class="n">pv</span><span class="p">,</span>
+    <span class="n">global_T_model</span><span class="o">=</span><span class="n">tmap</span><span class="p">,</span> <span class="n">global_VMR_model</span><span class="o">=</span><span class="n">vmrmap_mod</span><span class="p">,</span>
+    <span class="n">mod_lon</span><span class="o">=</span><span class="n">xlon</span><span class="p">,</span>
+    <span class="n">mod_lat</span><span class="o">=</span><span class="n">xlat</span><span class="p">,</span>
+    <span class="n">solspec</span><span class="o">=</span><span class="n">wasp43_spec</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can plot the results using the following code.
+We compare the emission spectrum calculated using the GCM model by NEMESISPY
+with the emission spectrum calculated using the GCM model by NEMESIS
+in Patrick Irwin et al. 2020, and the observed data from Kevin Stevenson et al. 2017.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;phase = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">phase</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave_grid</span><span class="p">,</span><span class="n">one_phase</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;GCM model (NEMESISPY)&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave_grid</span><span class="p">,</span><span class="n">pat_phase_by_wave</span><span class="p">[</span><span class="n">phasenumber</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;GCM model (NEMESIS)&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">wave_grid</span><span class="p">,</span><span class="n">kevin_phase_by_wave</span><span class="p">[</span><span class="n">phasenumber</span><span class="p">,:,</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Stevenson+ Data&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Relative difference between NemesiPy and NEMESIS&#39;</span><span class="p">)</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">one_phase</span> <span class="o">-</span> <span class="n">pat_phase_by_wave</span><span class="p">[</span><span class="n">phasenumber</span><span class="p">,:])</span><span class="o">/</span><span class="n">one_phase</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wave_grid</span><span class="p">,</span><span class="n">diff</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;emission_example.pdf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Tutorial</a><ul>
+<li><a class="reference internal" href="#hot-jupiter-emission-spectrum">Hot Jupiter emission spectrum</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="usage.html"
+                          title="previous chapter">Usage</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="api.html"
+                          title="next chapter">API</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tutorial.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">nemeispy 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tutorial</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Jingxuan Yang, Juan Alday, Patrick Irwin.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

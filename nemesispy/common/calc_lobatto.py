@@ -61,7 +61,6 @@ def calc_legendre_derivative(n, x):
         /((x**2-1)/n)
     return result
 
-
 def lobatto(n):
     """
     Generate points and weights for Lobatto quadrature.
