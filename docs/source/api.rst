@@ -1,7 +1,7 @@
 API
 ===
 
-Here are the some of the functions that are available in the `NemesisPy` package.
+Here are the some of the functions that are available in the NEMESISPY package.
 
 common
 ------
@@ -37,3 +37,9 @@ radtran
 .. autofunction:: nemesispy.calc_planck
 
 .. autofunction:: nemesispy.calc_radiance
+
+.. autofunction:: nemesispy.read_kta
+
+.. autofunction:: nemesispy.read_kls
+
+.. autofunction:: nemesispy.read_cia

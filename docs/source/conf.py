@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'NemesisPy'
+project = 'NEMESISPY'
 copyright = '2024, Jingxuan Yang, Juan Alday, Patrick Irwin'
 author = 'Jingxuan Yang, Juan Alday, Patrick Irwin'
 
@@ -31,10 +31,11 @@ release = '0.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-   'sphinx.ext.duration',
+   'sphinx.ext.duration', # add durations report after build
+   'sphinx.ext.autodoc', # include docstrings
+   'sphinx.ext.autosummary', # include summaries
    'sphinx.ext.doctest',
-   'sphinx.ext.autodoc',
-   'sphinx.ext.autosummary',
+   'sphinx.ext.githubpages',
    'sphinx.ext.napoleon',
 ]
 
@@ -52,7 +53,12 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'furo'
+html_theme = 'classic'
+html_theme_options = {
+    "relbarbgcolor": "black",
+    "globaltoc_collapse": "false",
+    "stickysidebar":"true",
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

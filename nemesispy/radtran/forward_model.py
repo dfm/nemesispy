@@ -19,10 +19,10 @@ from nemesispy.common.get_gas_info import get_gas_id, get_gas_name
 class ForwardModel():
 
     def __init__(self):
-        """
-        Attributes to store planet and opacity data.
-        These attributes shouldn't change during a retrieval.
-        """
+        # """
+        # Attributes to store planet and opacity data.
+        # These attributes shouldn't change during a retrieval.
+        # """
         # planet and planetary system data
         self.M_plt = None
         self.R_plt = None
@@ -242,6 +242,7 @@ class ForwardModel():
     def calc_disc_spectrum(self,phase,nmu,P_model,
         global_model_P_grid,global_T_model,global_VMR_model,
         mod_lon,mod_lat,solspec):
+
         """
         Parameters
         ----------
@@ -292,7 +293,18 @@ class ForwardModel():
 
     def calc_disc_spectrum_uniform(self, nmu, P_model, T_model, VMR_model,
         H_model=[],solspec=[]):
-        """Caculate the disc integrated spectrum of a homogeneous atmosphere
+        """_summary_
+
+        Args:
+            nmu (_type_): _description_
+            P_model (_type_): _description_
+            T_model (_type_): _description_
+            VMR_model (_type_): _description_
+            H_model (list, optional): _description_. Defaults to [].
+            solspec (list, optional): _description_. Defaults to [].
+
+        Returns:
+            _type_: _description_
         """
         # initialise output array
         disc_spectrum = np.zeros(len(self.wave_grid))
