@@ -1,0 +1,37 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter C
+  \item \spxentry{calc\_hydrostat()}\spxextra{in module nemesispy}, \hyperpage{3}
+  \item \spxentry{calc\_layer()}\spxextra{in module nemesispy}, \hyperpage{7}
+  \item \spxentry{calc\_mmw()}\spxextra{in module nemesispy}, \hyperpage{8}
+  \item \spxentry{calc\_planck()}\spxextra{in module nemesispy}, \hyperpage{9}
+  \item \spxentry{calc\_radiance()}\spxextra{in module nemesispy}, \hyperpage{9}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{disc\_weights()}\spxextra{in module nemesispy}, \hyperpage{4}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{gauss\_lobatto\_weights()}\spxextra{in module nemesispy}, \hyperpage{4}
+  \item \spxentry{get\_gas\_id()}\spxextra{in module nemesispy}, \hyperpage{4}
+  \item \spxentry{get\_gas\_name()}\spxextra{in module nemesispy}, \hyperpage{4}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{interp\_gcm\_X()}\spxextra{in module nemesispy}, \hyperpage{4}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{Model4()}\spxextra{in module nemesispy}, \hyperpage{6}
+
+  \indexspace
+  \bigletter T
+  \item \spxentry{TP\_Guillot()}\spxextra{in module nemesispy}, \hyperpage{5}
+  \item \spxentry{TP\_Guillot14()}\spxextra{in module nemesispy}, \hyperpage{6}
+
+\end{sphinxtheindex}

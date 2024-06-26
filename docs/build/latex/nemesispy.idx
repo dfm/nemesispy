@@ -1,0 +1,13 @@
+\indexentry{calc\_hydrostat() (in module nemesispy)@\spxentry{calc\_hydrostat()}\spxextra{in module nemesispy}|hyperpage}{3}
+\indexentry{disc\_weights() (in module nemesispy)@\spxentry{disc\_weights()}\spxextra{in module nemesispy}|hyperpage}{4}
+\indexentry{gauss\_lobatto\_weights() (in module nemesispy)@\spxentry{gauss\_lobatto\_weights()}\spxextra{in module nemesispy}|hyperpage}{4}
+\indexentry{get\_gas\_name() (in module nemesispy)@\spxentry{get\_gas\_name()}\spxextra{in module nemesispy}|hyperpage}{4}
+\indexentry{get\_gas\_id() (in module nemesispy)@\spxentry{get\_gas\_id()}\spxextra{in module nemesispy}|hyperpage}{4}
+\indexentry{interp\_gcm\_X() (in module nemesispy)@\spxentry{interp\_gcm\_X()}\spxextra{in module nemesispy}|hyperpage}{4}
+\indexentry{TP\_Guillot() (in module nemesispy)@\spxentry{TP\_Guillot()}\spxextra{in module nemesispy}|hyperpage}{5}
+\indexentry{TP\_Guillot14() (in module nemesispy)@\spxentry{TP\_Guillot14()}\spxextra{in module nemesispy}|hyperpage}{6}
+\indexentry{Model4() (in module nemesispy)@\spxentry{Model4()}\spxextra{in module nemesispy}|hyperpage}{6}
+\indexentry{calc\_layer() (in module nemesispy)@\spxentry{calc\_layer()}\spxextra{in module nemesispy}|hyperpage}{7}
+\indexentry{calc\_mmw() (in module nemesispy)@\spxentry{calc\_mmw()}\spxextra{in module nemesispy}|hyperpage}{8}
+\indexentry{calc\_planck() (in module nemesispy)@\spxentry{calc\_planck()}\spxextra{in module nemesispy}|hyperpage}{9}
+\indexentry{calc\_radiance() (in module nemesispy)@\spxentry{calc\_radiance()}\spxextra{in module nemesispy}|hyperpage}{9}
