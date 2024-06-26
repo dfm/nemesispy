@@ -44,7 +44,8 @@ computing emission spectra.
 
 Next, we import an atmopsheric model calculated using a general circulation
 model (GCM) for a hot Jupiter. This model is calculated using the setup
-of Parmentier et al. (2016) and used in the Irwin et al. (2020).
+of `Parmentier et al. (2016) <https://iopscience.iop.org/article/10.3847/0004-637X/828/1/22>`_
+and used in the `Irwin et al. (2020) <https://academic.oup.com/mnras/article/493/1/106/5715917>`_.
 
 .. code-block:: python
 
@@ -65,8 +66,9 @@ The longitude, latitude and pressure grid of the GCM model is given by
     from nemesispy.data.gcm.process_gcm import xlon,xlat,pv
 
 Finally, we import the observed phase resolved emission spectrum of WASP-43b
-published in Kevin Stevenson et al. 2017, and the emission spectrum calculated using
-the GCM model using NEMESIS in Patrick Irwin et al. 2020.
+published in `Kevin Stevenson et al. 2017 <https://iopscience.iop.org/article/10.3847/1538-3881/153/2/68>`_,
+and the emission spectrum calculated using
+the GCM model using NEMESIS in `Patrick Irwin et al. 2020 <https://academic.oup.com/mnras/article/493/1/106/5715917>`_.
 
 .. code-block:: python
 

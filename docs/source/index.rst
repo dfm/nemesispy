@@ -117,8 +117,8 @@ Citation
 --------
 If you use **NEMESISPY** in your research, please cite the `following paper <https://academic.oup.com/mnras/article/525/4/5146/7251485>`_:
 
-* Jingxuan Yang, Patrick G J Irwin, Joanna K Barstow, Testing 2D temperature models in Bayesian retrievals of atmospheric properties from hot Jupiter phase curves, Monthly Notices of the Royal Astronomical Society, Volume 525, Issue 4, November 2023, Pages 5146–5167, https://doi.org/10.1093/mnras/stad2555
+* Jingxuan Yang, Patrick G J Irwin, Joanna K Barstow, Testing 2D temperature models in Bayesian retrievals of atmospheric properties from hot Jupiter phase curves, Monthly Notices of the Royal Astronomical Society, Volume 525, Issue 4, November 2023, Pages 5146–5167, https://doi.org/10.1093/mnras/stad2555,
 
 as well as the `original NEMESIS paper <https://www.sciencedirect.com/science/article/abs/pii/S0022407307003378>`_:
 
-* P.G.J. Irwin, N.A. Teanby, R. de Kok, L.N. Fletcher, C.J.A. Howett, C.C.C. Tsang, C.F. Wilson, S.B. Calcutt, C.A. Nixon, P.D. Parrish, The NEMESIS planetary atmosphere radiative transfer and retrieval tool, Journal of Quantitative Spectroscopy and Radiative Transfer, Volume 109, Issue 6, 2008, Pages 1136-1150, ISSN 0022-4073, https://doi.org/10.1016/j.jqsrt.2007.11.006
+* P.G.J. Irwin, N.A. Teanby, R. de Kok, L.N. Fletcher, C.J.A. Howett, C.C.C. Tsang, C.F. Wilson, S.B. Calcutt, C.A. Nixon, P.D. Parrish, The NEMESIS planetary atmosphere radiative transfer and retrieval tool, Journal of Quantitative Spectroscopy and Radiative Transfer, Volume 109, Issue 6, 2008, Pages 1136-1150, ISSN 0022-4073, https://doi.org/10.1016/j.jqsrt.2007.11.006.
