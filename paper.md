@@ -41,7 +41,8 @@ NEMESISPY has three distinguishing features as an exoplanetary retrieval pipelin
 NEMESISPY contains several general-purpose routines for atmospheric modelling and spectral simulations. The modular nature of the package means that subroutines can be easily called on their own. Currently, NEMESISPY has an easy-to-use API for simulating emission spectra and phase curves of hot Jupiters from arbitrary input atmospheric models, and new features are being actively developed, such as including multiple scattering in radiative transfer calculation. NEMESISPY has already enabled two scientific publications [@yang_testing_2023;@yang_simultaneous_2024] and numerous ongoing exoplanetary data analysis projects. The combination of well-tested core radiative transfer routines, accelerated computational speed, and packaged modular design is ideal for tackling the influx of JWST data of exoplanets.
 
 # State of the field
-For a review of exoplanet atmospheric retrieval codes that have comparable functionalities to NEMESISPY, we refer the reader to the comprehensive catalogue in @macdonald_catalog_2023.
+
+For a review of exoplanet atmospheric retrieval codes with comparable functionalities to NEMESISPY, we refer the reader to the comprehensive catalogue in @macdonald_catalog_2023.
 
 # Acknowledgements
 
