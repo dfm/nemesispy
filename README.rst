@@ -43,8 +43,19 @@ This package has the following features:
 
 In order to install the package but still make it editable, change directory to
 the software folder and type the following in the terminal:
-pip install --editable .
+
+.. code-block:: console
+
+    $ pip install --editable .
 
 To run all unit tests, change directory to the software folder and type the
 following in the terminal:
-python -m unittest discover test/
+
+.. code-block:: console
+
+    $ python -m unittest discover test/
+
+.. note::
+
+The project is currently maintained by `Jingxuan Yang <https://scholar.google.com/citations?user=2XEkBdUAAAAJ&hl=en>`_.
+If you would like to contribute to the project, please contact the maintainer.
