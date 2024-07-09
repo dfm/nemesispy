@@ -94,6 +94,12 @@ one_phase =  FM.calc_disc_spectrum(phase=phase, nmu=nmu, P_model = P_model,
 end1 = time.time()
 print('compilation + run time = ', end1-start1)
 
+print(one_phase)
+# If you choose phasenumber=3, then you should get
+# [0.00022886, 0.00024863, 0.0003056, 0.0003832, 0.00043493, 0.0004079,
+#  0.00026642, 0.00023871, 0.00023655, 0.00025694, 0.00029318, 0.00034508,
+#  0.00041056, 0.00048727, 0.0005497, 0.00280154, 0.00367963]
+
 # After the just-in-time compilation, the forward model runs MUCH faster.
 start2 = time.time()
 one_phase =  FM.calc_disc_spectrum(phase=phase, nmu=nmu, P_model = P_model,
