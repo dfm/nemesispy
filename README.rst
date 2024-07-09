@@ -69,5 +69,5 @@ following in the terminal:
 
 .. note::
 
-The project is currently maintained by `Jingxuan Yang <https://scholar.google.com/citations?user=2XEkBdUAAAAJ&hl=en>`_.
-If you would like to contribute to the project, please contact the maintainer.
+    The project is currently maintained by `Jingxuan Yang <https://scholar.google.com/citations?user=2XEkBdUAAAAJ&hl=en>`_.
+    If you would like to contribute to the project, please contact the maintainer.
