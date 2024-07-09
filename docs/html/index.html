@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Welcome to NEMESISPY’s documentation! &#8212; nemeispy 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">nemeispy 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to NEMESISPY’s documentation!</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="welcome-to-nemesispy-s-documentation">
+<h1>Welcome to NEMESISPY’s documentation!<a class="headerlink" href="#welcome-to-nemesispy-s-documentation" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#opacity-data">Opacity data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#issues-and-contributions">Issues and contributions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#hot-jupiter-emission-spectrum">Hot Jupiter emission spectrum</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#common">common</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#models">models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#radtran">radtran</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="publications.html">Publications</a></li>
+</ul>
+</div>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p><strong>NEMESISPY</strong> is a Python package developed for atmospheric retrievals,
+which is the inference of atmospheric properties such as chemical abundances
+from observed spectra of planetary atmospheres. The workflow of atmospheric
+retrievals can be devided into two steps: <strong>forward modelling</strong> and <strong>model fitting</strong>:</p>
+<ul class="simple">
+<li><p>The <strong>forward modelling</strong> step requires an atmospheric model for the observed
+planet and a radiative transfer pipeline that can calculate model spectra given an atmospheric model.</p></li>
+<li><p>The <strong>model fitting</strong> step requires a parameter estimation code that can
+constrain the free parameters of the forward model by fitting the observed spectra.</p></li>
+</ul>
+<p><strong>NEMESISPY</strong> can perform both parametric atmospheric modelling
+and radiative transfer calculation for the retrievals of planetary spectra.
+It is a recent development of the well-established Fortran <a class="reference external" href="https://github.com/nemesiscode">NEMESIS library</a>,
+which has been applied to the atmospheric retrievals of both solar system planets
+and exoplanets.
+<strong>NEMESISPY</strong> can be easily interfaced with Bayesian inference algorithms
+such as nested sampling to retrieve atmospheric properties from spectroscopic observations.
+The radiative transfer calculations in <strong>NEMESISPY</strong> are done with the
+fast correlated-k method, and are accelerated with the
+<code class="docutils literal notranslate"><span class="pre">Numba</span></code> just-in-time compiler to match the speed of
+compiled languages such as Fortran. The radiative transfer
+routines are based on the well-tested <a class="reference external" href="https://github.com/nemesiscode">NEMESIS library</a>
+developed by Patrick Irwin (University of Oxford) and collaborators.</p>
+<p><strong>NEMESISPY</strong> comes ready with some spectral data and General Circulation
+Model (GCM) data so you can start simulating spectra immediately.
+There are a few demonstration routines in the <code class="docutils literal notranslate"><span class="pre">nemesispy/examples</span></code> folder;
+in particular, <code class="docutils literal notranslate"><span class="pre">demo_fit_eclipse.py</span></code> contains an interactive plot routine
+which allows you to fit a hot Jupiter eclipse spectrum by hand by varying
+its chemical abundance and temperature profile.
+The current release of <strong>NEMESISPY</strong> is focused on the calculation of
+thermal emission spectra of exoplanets. It is capale of calculating emission spectra
+at multiple orbital phases from an arbitray atmospheric model.
+Future releases will include more features such
+as multiple scattering and transmission geometry.</p>
+<p><strong>NEMESISPY</strong> has the following nice features:</p>
+<ul class="simple">
+<li><p>Written fully in Python (not a wrapper!): highly portable and customisable
+compared to packages written in compiled languages and
+can be easily installed on computer clusters.</p></li>
+<li><p>Fast calculation speed: the most time consuming routines are accelerated with
+just-in-time (JIT) compilation, which compiles Python code to machine
+code at run time.</p></li>
+<li><p>Radiative transfer routines are benchmarked against
+the extensively used <a class="reference external" href="https://github.com/nemesiscode">NEMESIS library</a>.</p></li>
+<li><p>Contains routines to simulate spectra from General
+Circulation Models (GCMs).</p></li>
+<li><p>Contains unit tests to check if
+the code is working correctly after modifications.</p></li>
+</ul>
+<p>To install the package and keep it editable, clone the repository and type
+the following in the terminal:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>--editable<span class="w"> </span>.
+</pre></div>
+</div>
+<p>To run all unit tests, change directory to the software folder and type the
+following in the terminal:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>discover<span class="w"> </span>test/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This project is under active development.</p>
+</div>
+</section>
+<section id="contributors">
+<h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this heading">¶</a></h2>
+<p><strong>NEMESISPY</strong> was originally developed by
+<a class="reference external" href="https://scholar.google.com/citations?user=2XEkBdUAAAAJ&amp;hl=en">Jingxuan Yang</a> (University of Oxford) and
+<a class="reference external" href="https://scholar.google.com/citations?user=NKSqWl0AAAAJ&amp;hl=en">Dr Juan Alday</a> (The Open University),
+with support from
+<a class="reference external" href="https://scholar.google.co.uk/citations?user=8cd7Q2oAAAAJ&amp;hl=en">Prof. Patrick Irwin</a> (University of Oxford).
+The project benefited from the numerous developers
+of the Fortran <a class="reference external" href="https://github.com/nemesiscode">NEMESIS library</a>, led and maintained
+by <a class="reference external" href="https://scholar.google.co.uk/citations?user=8cd7Q2oAAAAJ&amp;hl=en">Prof. Patrick Irwin</a>.</p>
+<p><strong>NEMESISPY</strong> is now under active development, with contributions from
+<a class="reference external" href="https://scholar.google.com/citations?user=j0AkDN4AAAAJ&amp;hl=en">Agnibha Banerjee</a> (The Open University),
+<a class="reference external" href="http://www.open.ac.uk/people/jkb298">Dr Jo Barstow</a> (The Open University),
+and <a class="reference external" href="https://www.physics.ox.ac.uk/our-people/penn">Joseph Penn</a> (University of Oxford).</p>
+<p>The project is currently maintained by <a class="reference external" href="https://scholar.google.com/citations?user=2XEkBdUAAAAJ&amp;hl=en">Jingxuan Yang</a>.
+If you would like to contribute to the project, please contact the maintainer.</p>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this heading">¶</a></h2>
+<p>If you use <strong>NEMESISPY</strong> in your research, please cite the <a class="reference external" href="https://academic.oup.com/mnras/article/525/4/5146/7251485">following paper</a>:</p>
+<ul class="simple">
+<li><p>Jingxuan Yang, Patrick G J Irwin, Joanna K Barstow, Testing 2D temperature models in Bayesian retrievals of atmospheric properties from hot Jupiter phase curves, Monthly Notices of the Royal Astronomical Society, Volume 525, Issue 4, November 2023, Pages 5146–5167, <a class="reference external" href="https://doi.org/10.1093/mnras/stad2555">https://doi.org/10.1093/mnras/stad2555</a>,</p></li>
+</ul>
+<p>as well as the <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0022407307003378">original NEMESIS paper</a>:</p>
+<ul class="simple">
+<li><p>P.G.J. Irwin, N.A. Teanby, R. de Kok, L.N. Fletcher, C.J.A. Howett, C.C.C. Tsang, C.F. Wilson, S.B. Calcutt, C.A. Nixon, P.D. Parrish, The NEMESIS planetary atmosphere radiative transfer and retrieval tool, Journal of Quantitative Spectroscopy and Radiative Transfer, Volume 109, Issue 6, 2008, Pages 1136-1150, ISSN 0022-4073, <a class="reference external" href="https://doi.org/10.1016/j.jqsrt.2007.11.006">https://doi.org/10.1016/j.jqsrt.2007.11.006</a>.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Welcome to NEMESISPY’s documentation!</a><ul>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#contributors">Contributors</a></li>
+<li><a class="reference internal" href="#citation">Citation</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="usage.html"
+                          title="next chapter">Usage</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">nemeispy 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to NEMESISPY’s documentation!</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Jingxuan Yang, Juan Alday, Patrick Irwin.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>
