@@ -66,12 +66,31 @@ by running</p>
 <p>We recommend installing the package from the GitHub repository
 to make sure that you have the latest version of the package.</p>
 </section>
-<section id="opacity-data">
-<h2>Opacity data<a class="headerlink" href="#opacity-data" title="Permalink to this heading">¶</a></h2>
-<p>NEMESISPY requires opacity data to be provided in the NEMESIS .kta format,
-which can be obtained from the <a class="reference external" href="https://www.exomol.com/data/data-types/opacity/">ExoMol database</a>.
-In addition, the <a class="reference external" href="https://perso.astrophy.u-bordeaux.fr/~jleconte/exo_k-doc/index.html">Exo_k</a>
-package provides many helpful routines for working with opacity data.</p>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this heading">¶</a></h2>
+<p><strong>Opacity data</strong></p>
+<p>The most important data files required by NEMESISPY are the opacity data files.
+To perform correlated-k radiative transfer calculations, NEMESISPY requires opacity
+data (k-tables) to be provided in the NEMESIS .kta format.
+k-tables in the .kta format can be directly downloaded from
+the <a class="reference external" href="https://www.exomol.com/data/data-types/opacity/">ExoMol database</a>.
+The NEMESISPY package comes with some example k-table files in the <code class="docutils literal notranslate"><span class="pre">nemesispy/data/ktables</span></code> folder.
+If you want to modify exsisting k-tables,
+the <a class="reference external" href="https://perso.astrophy.u-bordeaux.fr/~jleconte/exo_k-doc/index.html">Exo_k</a>
+package provides many helpful routines for working with opacity data.
+In addition, the NEMESISPY package also comes with a collision-induced absorption (CIA) data file
+in the <code class="docutils literal notranslate"><span class="pre">nemesispy/data/cia</span></code> folder, compiled using the data from the <a class="reference external" href="https://hitran.org/">HITRAN database</a>.</p>
+<p><strong>Stellar spectra</strong></p>
+<p>In exoplanetary observations, the planetary spectra are often normalised to the stellar spectrum.
+The NEMESISPY package comes with some example stellar spectra in the <code class="docutils literal notranslate"><span class="pre">nemesispy/data/stellar</span></code> folder.
+Synthetic stellar spectra can be obtained from various open-access databases, such as the
+<a class="reference external" href="https://www.astro.uni-jena.de/Users/theory/for2285-phoenix/grid.php">PHOENIX database</a>.</p>
+<p><strong>General Circulation Model (GCM) data</strong></p>
+<p>The NEMESISPY package can compute emission spectra from GCMs.
+The NEMESISPY package comes with some example GCM data for a hot Jupiter in the <code class="docutils literal notranslate"><span class="pre">nemesispy/data/gcm</span></code> folder.
+These GCM data were calculated using the setup of
+<a class="reference external" href="https://iopscience.iop.org/article/10.3847/0004-637X/828/1/22">Vivien Parmentier et al. (2016)</a>.
+It is not necessary to have GCM data to use the functionalities of the NEMESISPY package.</p>
 </section>
 <section id="issues-and-contributions">
 <h2>Issues and contributions<a class="headerlink" href="#issues-and-contributions" title="Permalink to this heading">¶</a></h2>
@@ -93,7 +112,7 @@ collaboration, please directly <a class="reference external" href="https://www.p
     <ul>
 <li><a class="reference internal" href="#">Usage</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#opacity-data">Opacity data</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
 <li><a class="reference internal" href="#issues-and-contributions">Issues and contributions</a></li>
 </ul>
 </li>
