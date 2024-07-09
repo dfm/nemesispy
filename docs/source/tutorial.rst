@@ -138,6 +138,15 @@ the GCM model using NEMESIS in `Patrick Irwin et al. 2020 <https://academic.oup.
         mod_lat=xlat,
         solspec=wasp43_spec)
 
+You should get the following results, which is list of flux ratios
+(planetery flux dividd by steller flux) at each wavelength.
+
+.. code-block:: python
+
+    [0.00022886, 0.00024863, 0.0003056, 0.0003832, 0.00043493, 0.0004079,
+    0.00026642, 0.00023871, 0.00023655, 0.00025694, 0.00029318, 0.00034508,
+    0.00041056, 0.00048727, 0.0005497, 0.00280154, 0.00367963]
+
 We can plot the results using the following code.
 We compare the emission spectrum calculated using the GCM model by NEMESISPY
 with the emission spectrum calculated using the GCM model by NEMESIS
