@@ -67,7 +67,10 @@ following in the terminal:
 
     $ python -m unittest discover test/
 
-.. note::
+
+=======
+Contact
+=======
 
 The project is currently maintained by `Jingxuan Yang <https://scholar.google.com/citations?user=2XEkBdUAAAAJ&hl=en>`_.
 If you would like to contribute to the project, please contact the maintainer.
