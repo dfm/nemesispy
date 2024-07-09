@@ -7,7 +7,7 @@ jobs:
     name: Paper Draft
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
       - name: TeX and PDF
         uses: docker://openjournals/paperdraft:latest
         with:
