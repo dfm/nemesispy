@@ -45,12 +45,20 @@ This package has the following features:
 * Contains unit tests to check if
   the code is working correctly after modifications.
 
+============
+Installation
+============
+
 In order to install the package but still make it editable, change directory to
 the software folder and type the following in the terminal:
 
 .. code-block:: console
 
     $ pip install --editable .
+
+=====
+Tests
+=====
 
 To run all unit tests, change directory to the software folder and type the
 following in the terminal:
