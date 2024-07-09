@@ -7,7 +7,7 @@ jobs:
     name: Paper Draft
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: TeX and PDF
         uses: docker://openjournals/paperdraft:latest
         with:
@@ -16,7 +16,7 @@ jobs:
           GIT_SHA: $GITHUB_SHA
           JOURNAL: joss
       - name: Upload
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: paper
           # This is the output path where Pandoc will write the compiled
