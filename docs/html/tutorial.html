@@ -150,7 +150,7 @@ the GCM model using NEMESIS in <a class="reference external" href="https://acade
 </div>
 <p><strong>Step 4: Computing the emission spectrum</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick an orbital phase</span>
-<span class="n">phasenumber</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># secondary eclipse</span>
+<span class="n">phasenumber</span> <span class="o">=</span> <span class="mi">7</span> <span class="c1"># secondary eclipse</span>
 <span class="n">phase</span> <span class="o">=</span> <span class="n">phase_grid</span><span class="p">[</span><span class="n">phasenumber</span><span class="p">]</span>
 <span class="n">one_phase</span> <span class="o">=</span>  <span class="n">FM</span><span class="o">.</span><span class="n">calc_disc_spectrum</span><span class="p">(</span><span class="n">phase</span><span class="o">=</span><span class="n">phase</span><span class="p">,</span> <span class="n">nmu</span><span class="o">=</span><span class="n">nmu</span><span class="p">,</span> <span class="n">P_model</span> <span class="o">=</span> <span class="n">P_model</span><span class="p">,</span>
     <span class="n">global_model_P_grid</span><span class="o">=</span><span class="n">pv</span><span class="p">,</span>
@@ -162,15 +162,16 @@ the GCM model using NEMESIS in <a class="reference external" href="https://acade
 </div>
 <p>You should get the following results, which is list of flux ratios
 (planetery flux dividd by steller flux) at each wavelength.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">0.00022886</span><span class="p">,</span> <span class="mf">0.00024863</span><span class="p">,</span> <span class="mf">0.0003056</span><span class="p">,</span> <span class="mf">0.0003832</span><span class="p">,</span> <span class="mf">0.00043493</span><span class="p">,</span> <span class="mf">0.0004079</span><span class="p">,</span>
-<span class="mf">0.00026642</span><span class="p">,</span> <span class="mf">0.00023871</span><span class="p">,</span> <span class="mf">0.00023655</span><span class="p">,</span> <span class="mf">0.00025694</span><span class="p">,</span> <span class="mf">0.00029318</span><span class="p">,</span> <span class="mf">0.00034508</span><span class="p">,</span>
-<span class="mf">0.00041056</span><span class="p">,</span> <span class="mf">0.00048727</span><span class="p">,</span> <span class="mf">0.0005497</span><span class="p">,</span> <span class="mf">0.00280154</span><span class="p">,</span> <span class="mf">0.00367963</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">0.00026323</span><span class="p">,</span> <span class="mf">0.00028751</span><span class="p">,</span> <span class="mf">0.00033877</span><span class="p">,</span> <span class="mf">0.00040943</span><span class="p">,</span> <span class="mf">0.00046332</span><span class="p">,</span> <span class="mf">0.00044917</span><span class="p">,</span>
+<span class="mf">0.00035036</span><span class="p">,</span> <span class="mf">0.00034237</span><span class="p">,</span> <span class="mf">0.00034749</span><span class="p">,</span> <span class="mf">0.00037085</span><span class="p">,</span> <span class="mf">0.00040751</span><span class="p">,</span> <span class="mf">0.0004533</span><span class="p">,</span>
+<span class="mf">0.00050714</span><span class="p">,</span> <span class="mf">0.00056521</span><span class="p">,</span> <span class="mf">0.00061118</span><span class="p">,</span> <span class="mf">0.00328166</span><span class="p">,</span> <span class="mf">0.00474654</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>We can plot the results using the following code.
 We compare the emission spectrum calculated using the GCM model by NEMESISPY
 with the emission spectrum calculated using the GCM model by NEMESIS
-in Patrick Irwin et al. 2020, and the observed data from Kevin Stevenson et al. 2017.</p>
+in <a class="reference external" href="https://academic.oup.com/mnras/article/493/1/106/5715917">Patrick Irwin et al. 2020</a>.,
+and the observed data from <a class="reference external" href="https://iopscience.iop.org/article/10.3847/1538-3881/153/2/68">Kevin Stevenson et al. 2017</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;phase = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">phase</span><span class="p">))</span>
@@ -192,6 +193,12 @@ in Patrick Irwin et al. 2020, and the observed data from Kevin Stevenson et al. 
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;emission_example.pdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Here is what you should get. We first note that the GCM spectrum calculated with
+the NEMESISPY code agrees well with the GCM spectrum calculated with the
+reference Fortran NEMESIS code (the relative difference is within 1%).
+We also see that while the GCM spectrum does not perfectly match the
+observed data, it does reproduce the general features of the secondary eclipse spectrum.</p>
+<a class="reference internal image-reference" href="_images/emission_example.png"><img alt="_images/emission_example.png" class="align-center" src="_images/emission_example.png" style="width: 600px;" /></a>
 </section>
 </section>
 

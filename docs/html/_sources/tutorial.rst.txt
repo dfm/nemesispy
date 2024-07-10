@@ -129,7 +129,7 @@ the GCM model using NEMESIS in `Patrick Irwin et al. 2020 <https://academic.oup.
 .. code-block:: python
 
     # Pick an orbital phase
-    phasenumber = 3 # secondary eclipse
+    phasenumber = 7 # secondary eclipse
     phase = phase_grid[phasenumber]
     one_phase =  FM.calc_disc_spectrum(phase=phase, nmu=nmu, P_model = P_model,
         global_model_P_grid=pv,
@@ -143,14 +143,15 @@ You should get the following results, which is list of flux ratios
 
 .. code-block:: python
 
-    [0.00022886, 0.00024863, 0.0003056, 0.0003832, 0.00043493, 0.0004079,
-    0.00026642, 0.00023871, 0.00023655, 0.00025694, 0.00029318, 0.00034508,
-    0.00041056, 0.00048727, 0.0005497, 0.00280154, 0.00367963]
+    [0.00026323, 0.00028751, 0.00033877, 0.00040943, 0.00046332, 0.00044917,
+    0.00035036, 0.00034237, 0.00034749, 0.00037085, 0.00040751, 0.0004533,
+    0.00050714, 0.00056521, 0.00061118, 0.00328166, 0.00474654]
 
 We can plot the results using the following code.
 We compare the emission spectrum calculated using the GCM model by NEMESISPY
 with the emission spectrum calculated using the GCM model by NEMESIS
-in Patrick Irwin et al. 2020, and the observed data from Kevin Stevenson et al. 2017.
+in `Patrick Irwin et al. 2020 <https://academic.oup.com/mnras/article/493/1/106/5715917>`_.,
+and the observed data from `Kevin Stevenson et al. 2017 <https://iopscience.iop.org/article/10.3847/1538-3881/153/2/68>`_.
 
 .. code-block:: python
 
@@ -173,3 +174,13 @@ in Patrick Irwin et al. 2020, and the observed data from Kevin Stevenson et al. 
     axs[1].scatter(wave_grid,diff,marker='.',color='b')
     axs[1].grid()
     plt.savefig('emission_example.pdf')
+
+Here is what you should get. We first note that the GCM spectrum calculated with
+the NEMESISPY code agrees well with the GCM spectrum calculated with the
+reference Fortran NEMESIS code (the relative difference is within 1%).
+We also see that while the GCM spectrum does not perfectly match the
+observed data, it does reproduce the general features of the secondary eclipse spectrum.
+
+.. image:: emission_example.png
+  :width: 600
+  :align: center

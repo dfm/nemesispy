@@ -83,7 +83,7 @@ FM.set_opacity_data(
 print('start just-in-time compilation...')
 start1 = time.time()
 # Pick an orbital phase
-phasenumber = 3 # secondary eclipse
+phasenumber = 7 # secondary eclipse
 phase = phase_grid[phasenumber]
 one_phase =  FM.calc_disc_spectrum(phase=phase, nmu=nmu, P_model = P_model,
     global_model_P_grid=pv,
@@ -95,12 +95,12 @@ end1 = time.time()
 print('compilation + run time = ', end1-start1)
 
 print(one_phase)
-# If you choose phasenumber=3, then you should get
-# [0.00022886, 0.00024863, 0.0003056, 0.0003832, 0.00043493, 0.0004079,
-#  0.00026642, 0.00023871, 0.00023655, 0.00025694, 0.00029318, 0.00034508,
-#  0.00041056, 0.00048727, 0.0005497, 0.00280154, 0.00367963]
+# If you choose phasenumber=7, then you should get
+# [0.00026323, 0.00028751, 0.00033877, 0.00040943, 0.00046332, 0.00044917,
+#  0.00035036, 0.00034237, 0.00034749, 0.00037085, 0.00040751, 0.0004533,
+#  0.00050714, 0.00056521, 0.00061118, 0.00328166, 0.00474654]
 
-# After the just-in-time compilation, the forward model runs MUCH faster.
+#After the just-in-time compilation, the forward model runs MUCH faster.
 start2 = time.time()
 one_phase =  FM.calc_disc_spectrum(phase=phase, nmu=nmu, P_model = P_model,
     global_model_P_grid=pv,
@@ -112,7 +112,7 @@ end2 = time.time()
 print('run time = ', end2-start2)
 
 # Plot the results
-# We compare the emission spectrum calculated using the GCM model from NemesiPy
+# We compare the emission spectrum calculated using the GCM model from NEMESISPY
 # with the emission spectrum calculated using the GCM model from NEMESIS,
 # and the observed data from Stevenson et al. 2017.
 fig, axs = plt.subplots(nrows=2,ncols=1,sharex=True,
@@ -129,12 +129,12 @@ axs[0].scatter(
     color='r',marker='+',label='Stevenson+ Data')
 axs[0].legend()
 axs[0].grid()
-axs[1].set_title('Relative difference between NemesiPy and NEMESIS')
+axs[1].set_title('Relative difference between NEMESISPY and NEMESIS')
 diff = (one_phase - pat_phase_by_wave[phasenumber,:])/one_phase
 axs[1].scatter(wave_grid,diff,marker='.',color='b')
 axs[1].grid()
 plt.savefig('emission_example.pdf')
-
+plt.savefig('emission_example.png')
 # # The routine below calculate the average run time of the forward model
 # start2 = time.time()
 # niter = 10
