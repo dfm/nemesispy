@@ -179,7 +179,7 @@ Here is what you should get. We first note that the GCM spectrum calculated with
 the NEMESISPY code agrees well with the GCM spectrum calculated with the
 reference Fortran NEMESIS code (the relative difference is within 1%).
 We also see that while the GCM spectrum does not perfectly match the
-observed data, it does reproduce the general features of the secondary eclipse spectrum.
+observed data, it does reproduce the general features of the observed secondary eclipse spectrum.
 
 .. image:: emission_example.png
   :width: 600
