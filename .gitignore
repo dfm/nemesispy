@@ -147,5 +147,5 @@ nemesispy/data/gcm/PTprofiles_hr_all
 !Yang2024_nemesispy.pdf
 
 # git
-.gitingore
-.github
+.gitignore
+.github/
